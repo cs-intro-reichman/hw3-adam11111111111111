@@ -136,6 +136,9 @@ public class Algebra {
 	public static int sqrt(int x) {
 		int num = 2;
 		int temp = x;
+		if (x < 2) {
+			return x;
+		}
 		while (temp > 4) {
 			while (num <= div(temp, 2)) {
 				if (times(num,num) > temp) {
