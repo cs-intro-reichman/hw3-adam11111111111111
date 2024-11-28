@@ -24,8 +24,8 @@ public class Algebra {
 		System.out.println(div(25, 7)); // 25 / 7 = 3
 		System.out.println(sqrt(36)); // 6
 		System.out.println(sqrt(36)); // 6
-		System.out.println(sqrt(401)); // 6
-		System.out.println(sqrt(400)); // 6
+		System.out.println(sqrt(38)); // 6
+		System.out.println(sqrt(76123)); // 6
 
 	}
 
@@ -135,12 +135,20 @@ public class Algebra {
 	// Returns the integer part of sqrt(x)
 	public static int sqrt(int x) {
 		int num = 2;
-		while (num <= div(x, 2)) {
-			if (times(num, num) == x) {
-				return num;
+		int temp = x;
+		while (temp > 4) {
+			while (num <= div(temp, 2)) {
+				if (times(num,num) > temp) {
+					break;
+				}
+				if (times(num, num) == temp) {
+					return num;
+				}
+				num++;
 			}
-			num++;
+			num = 2;
+			temp--;
 		}
-		return x;
+		return num;
 	}
 }
