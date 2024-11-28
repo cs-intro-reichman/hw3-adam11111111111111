@@ -6,26 +6,26 @@
 public class Algebra {
 	public static void main(String args[]) {
 		// Tests some of the operations
-		System.out.println(plus(2, 3)); // 2 + 3
-		System.out.println(plus(-20, 3)); // 2 + 3
-		System.out.println(plus(2, -3)); // 2 + (-3)
-		System.out.println(minus(7, 2)); // 7 - 2
-		System.out.println(minus(2, 7)); // 2 - 7
-		System.out.println(minus(-2, -7)); // - 2 - (-7)
-		System.out.println(times(3, 4)); // 3 * 4
-		System.out.println(plus(2, times(4, 2))); // 2 + 4 * 2
-		System.out.println(pow(5, 3)); // 5^3
-		System.out.println(pow(3, 5)); // 3^5
-		System.out.println(div(12, 3)); // 12 / 3
-		System.out.println(div(5, 5)); // 5 / 5
-		System.out.println(div(25, 7)); // 25 / 7
-		System.out.println(mod(25, 7)); // 25 % 7
-		System.out.println(mod(120, 6)); // 120 % 6
-		System.out.println(sqrt(36));
-		System.out.println(sqrt(263169));
-		System.out.println(sqrt(76123));
-		System.out.println(sqrt(0));
-		System.out.println(sqrt(1));
+		System.out.println(plus(2, 3)); // 2 + 3 = 5
+		System.out.println(plus(-20, 3)); // -20 + 3 = -17
+		System.out.println(plus(2, -3)); // 2 + (-3) = -1
+		System.out.println(minus(7, 2)); // 7 - 2 = 5
+		System.out.println(minus(2, 7)); // 2 - 7 = -5
+		System.out.println(minus(-2, -7)); // - 2 - (-7) = 5
+		System.out.println(times(3, 4)); // 3 * 4 = 12
+		System.out.println(times(3, -4)); // 3 * -4 = -12
+		System.out.println(times(-3, -4)); // -3 * -4 = 12
+		System.out.println(times(-3, 4)); // - 3 * 4 = -12
+		System.out.println(plus(2, times(4, 2))); // 2 + 4 * 2 = 10
+		System.out.println(pow(5, 3)); // 5^3 = 125
+		System.out.println(pow(3, 5)); // 3^5 = 243
+		System.out.println(div(12, 3)); // 12 / 3 = 4
+		System.out.println(div(5, 5)); // 5 / 5 = 1
+		System.out.println(div(25, 7)); // 25 / 7 = 3
+		System.out.println(sqrt(36)); // 6
+		System.out.println(sqrt(36)); // 6
+		System.out.println(sqrt(401)); // 6
+		System.out.println(sqrt(400)); // 6
 
 	}
 
@@ -72,14 +72,15 @@ public class Algebra {
 		if (x1 == 0 || x2 == 0) {
 			return 0;
 		}
-		int mult = x1;
-		if ((x1 < 0 && x2 < 0) || x1 > 0 && x2 > 0) {
+		int mult = abs(x1);
+		int temp1 = abs(x1);
+		if ((x1 < 0 && x2 < 0) || (x1 > 0 && x2 > 0)) {
 			for (int i = 2; i <= abs(x2); i++) {
-				mult = plus(mult, x1);
+				mult = plus(mult, temp1);
 			}
 		} else {
-			for (int i = 2; i <= x2; i++) {
-				mult = plus(mult, x1);
+			for (int i = 2; i <= abs(x2); i++) {
+				mult = plus(mult, temp1);
 			}
 			mult = minus(0, mult);
 		}
@@ -96,18 +97,12 @@ public class Algebra {
 		int temp = abs(x);
 		if (x < 0 && mod(n, 2) != 0) {
 			for (int i = 2; i <= n; i++) {
-				for (int j = 1; j < x; j++) {
-					num = plus(num, temp);
-				}
-				temp = num;
+				num = times(num, temp);
 			}
 			num = minus(0, num);
 		} else {
 			for (int i = 2; i <= n; i++) {
-				for (int j = 1; j < x; j++) {
-					num = plus(num, temp);
-				}
-				temp = num;
+				num = times(num, temp);
 			}
 		}
 		return num;
@@ -139,12 +134,12 @@ public class Algebra {
 
 	// Returns the integer part of sqrt(x)
 	public static int sqrt(int x) {
-		int increment = 1;
-		while (increment <= div(x, 2)) {
-			if (times(increment, increment) == x) {
-				return increment;
+		int num = 2;
+		while (num <= div(x, 2)) {
+			if (times(num, num) == x) {
+				return num;
 			}
-			increment++;
+			num++;
 		}
 		return x;
 	}
